@@ -1,4 +1,4 @@
-name: telefonia
+name: telefonia_app
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -30,10 +30,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  provider: ^6.1.2
+  intl: ^0.20.3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
+  sqflite: ^2.4.4+2
+  sqflite_common: ^2.5.14
+  sqflite_common_ffi: ^2.4.4
+  sqflite_common_ffi_web: ^1.2.0
+  path: ^1.9.1
+  image_picker: ^1.2.4
+  cryptography: ^2.9.0
 
 dev_dependencies:
   flutter_test:
