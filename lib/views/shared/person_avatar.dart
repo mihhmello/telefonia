@@ -15,7 +15,7 @@ class PersonAvatar extends StatelessWidget {
   final double radius;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {// constrói o widget de avatar da pessoa, exibindo a foto se disponível, caso contrário, exibe um ícone de fallback.
     final fallback = ColoredBox(
       color: Colors.orange.shade100,
       child: Center(

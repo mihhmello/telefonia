@@ -31,7 +31,7 @@ class RouteGuard extends StatelessWidget {
   final RouteSettings settings;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { // O widget RouteGuard verifica o estado do usuário e redireciona para a página apropriada com base no status de autenticação, permissões e requisitos de alteração de senha, garantindo que apenas usuários autorizados acessem determinadas rotas.
     final provider = context.watch<AppProvider>();
     if (provider.isLoading) {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
@@ -65,7 +65,7 @@ class RouteGuard extends StatelessWidget {
       );
     }
     final args = settings.arguments;
-    switch (path) {
+    switch (path) { // O switch case avalia a rota solicitada e retorna o widget correspondente, garantindo que apenas usuários autorizados acessem determinadas páginas e que os argumentos fornecidos sejam do tipo esperado.
       case '/':
       case '/admin':
       case '/user':

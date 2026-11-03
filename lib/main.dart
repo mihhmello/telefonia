@@ -7,6 +7,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'routing/app_routes.dart';
 
+//
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(
@@ -17,6 +18,7 @@ void main() {
   );
 }
 
+// O widget principal da aplicação, configurando o tema, rotas e tratamento de estado global, incluindo carregamento inicial e mensagens de erro.
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

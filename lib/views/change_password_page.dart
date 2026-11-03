@@ -5,6 +5,7 @@ import '../providers/app_provider.dart';
 import '../utils/field_validators.dart';
 import 'shared/crud_actions.dart';
 
+// Uma página que permite ao usuário alterar sua senha, com validação de campos e tratamento de erros, redirecionando para a tela apropriada após a alteração bem-sucedida.
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({super.key, this.forced = false});
   final bool forced;
@@ -12,6 +13,7 @@ class ChangePasswordPage extends StatefulWidget {
   State<ChangePasswordPage> createState() => _ChangePasswordPageState();
 }
 
+// O estado da página de alteração de senha, gerenciando os campos de entrada, validação e envio da nova senha, bem como o estado de carregamento.
 class _ChangePasswordPageState extends State<ChangePasswordPage> {
   final _key = GlobalKey<FormState>();
   final _current = TextEditingController();
@@ -26,6 +28,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     super.dispose();
   }
 
+// Salva a nova senha, validando os campos e chamando o método de alteração de senha do provedor, exibindo mensagens de erro se necessário e redirecionando para a tela apropriada após a alteração bem-sucedida.
   Future<void> _save() async {
     if (_saving || !_key.currentState!.validate()) return;
     setState(() => _saving = true);
@@ -46,6 +49,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     }
   }
 
+// Constrói a interface da página de alteração de senha, incluindo campos de entrada para a senha atual, nova senha e confirmação da nova senha, bem como um botão para salvar a nova senha, exibindo mensagens de erro conforme necessário.
   @override
   Widget build(BuildContext context) => PopScope(
     canPop: !widget.forced,

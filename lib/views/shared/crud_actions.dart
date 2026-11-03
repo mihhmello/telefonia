@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../repositories/crud_repository.dart';
 
-Future<bool> runCrudAction(
+Future<bool> runCrudAction(// executa uma ação de CRUD e trata erros, exibindo uma mensagem de erro em um SnackBar se a ação falhar.
   BuildContext context,
   Future<void> Function() action,
 ) async {
@@ -26,7 +26,7 @@ Future<bool> runCrudAction(
   }
 }
 
-Future<void> confirmDelete(
+Future<void> confirmDelete( // exibe um diálogo de confirmação antes de executar uma ação de exclusão, chamando runCrudAction se o usuário confirmar a exclusão.
   BuildContext context,
   Future<void> Function() action,
 ) async {

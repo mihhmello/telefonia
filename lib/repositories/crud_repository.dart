@@ -2,7 +2,7 @@ import 'package:sqflite_common/sqlite_api.dart';
 
 import '../data/app_database.dart';
 
-class RepositoryException implements Exception {
+class RepositoryException implements Exception { // Exceção personalizada para erros de repositório, encapsulando uma mensagem de erro legível.
   const RepositoryException(this.message);
   final String message;
   @override
@@ -24,16 +24,19 @@ class CrudRepository<T> {
   final T Function(Map<String, Object?>) fromMap;
   final Map<String, Object?> Function(T) toMap;
 
+// Retorna todos os registros da tabela, ordenados pelo campo especificado, mapeando cada registro para o tipo T usando a função fromMap.
   Future<List<T>> findAll() async {
     final db = await database.database;
     return (await db.query(table, orderBy: orderBy)).map(fromMap).toList();
   }
 
+// Retorna um registro específico da tabela pelo ID, mapeando o registro para o tipo T usando a função fromMap, ou null se o registro não for encontrado.
   Future<void> create(T item) => _write(() async {
     await (await database.database).insert(table, toMap(item));
   });
 
-  Future<void> update(T item) => _write(() async {
+// Atualiza um registro existente no banco de dados, lançando uma exceção se o registro não for encontrado.
+  Future<void> update(T item) => _write(() async { // Atualiza um registro existente no banco de dados, lançando uma exceção se o registro não for encontrado.
     final values = toMap(item);
     final count = await (await database.database).update(
       table,
@@ -48,6 +51,7 @@ class CrudRepository<T> {
     }
   });
 
+// Exclui um registro específico da tabela pelo ID, lançando uma exceção se o registro não for encontrado.
   Future<void> delete(String id) => _write(() async {
     final count = await (await database.database).delete(
       table,
@@ -61,6 +65,7 @@ class CrudRepository<T> {
     }
   });
 
+// Executa uma ação de escrita no banco de dados, capturando exceções específicas do SQLite e lançando exceções de repositório com mensagens legíveis para o usuário.
   Future<void> _write(Future<void> Function() action) async {
     try {
       await action();

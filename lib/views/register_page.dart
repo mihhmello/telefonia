@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../routing/app_routes.dart';
 
-// Compatibilidade com chamadas antigas: o acesso continua passando pela proteção.
+// O widget RegisterPage é responsável por exibir a página de registro de usuários, utilizando o RouteGuard para proteger a rota e garantir que apenas usuários não autenticados possam acessá-la.
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
   @override

@@ -4,6 +4,7 @@ import '../models/contrato_model.dart';
 import '../models/agendamento_model.dart';
 import 'crud_repository.dart';
 
+// Fornece métodos para acessar e manipular os dados de técnicos, contratos e agendamentos no banco de dados SQLite, garantindo consistência e integridade dos vínculos entre as entidades.
 class TelefoniaSnapshot {
   const TelefoniaSnapshot(this.tecnicos, this.contratos, this.agendamentos);
   final List<TecnicoModel> tecnicos;
@@ -11,6 +12,7 @@ class TelefoniaSnapshot {
   final List<AgendamentoModel> agendamentos;
 }
 
+// Gerencia o acesso aos repositórios de técnicos, contratos e agendamentos, fornecendo métodos para carregar uma visão consistente dos dados e reconstruir os vínculos entre as entidades.
 class TelefoniaRepository {
   TelefoniaRepository(this.database) {
     tecnicos = CrudRepository(
@@ -36,13 +38,14 @@ class TelefoniaRepository {
     );
   }
 
+// Retorna uma visão consistente dos dados de técnicos, contratos e agendamentos, reconstruindo os vínculos entre as entidades pelos IDs, garantindo que as alterações em técnicos ou contratos sejam refletidas nos agendamentos existentes.
   final AppDatabase database;
   late final CrudRepository<TecnicoModel> tecnicos;
   late final CrudRepository<ContratoModel> contratos;
   late final CrudRepository<AgendamentoModel> agendamentos;
 
-  /// Lê uma visão consistente e reconstrói os vínculos pelos IDs.
-  /// Assim, editar o técnico/contrato também atualiza as visitas existentes.
+  // Lê uma visão consistente e reconstrói os vínculos pelos IDs.
+  // Assim, editar o técnico/contrato também atualiza as visitas existentes.
   Future<TelefoniaSnapshot> load() async {
     final db = await database.database;
     return db.transaction((txn) async {

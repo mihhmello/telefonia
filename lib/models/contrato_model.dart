@@ -14,7 +14,7 @@ class ContratoModel {
     required this.endereco,
   });
 
-  factory ContratoModel.fromMap(Map<String, Object?> map) => ContratoModel(
+  factory ContratoModel.fromMap(Map<String, Object?> map) => ContratoModel(// Cria uma instância de ContratoModel a partir de um mapa de dados, mapeando os campos do banco de dados para as propriedades do modelo.
     id: map['id'] as String,
     numeroContrato: map['numero_contrato'] as String,
     cliente: map['cliente'] as String,

@@ -5,7 +5,7 @@ import '../../providers/app_provider.dart';
 import '../shared/crud_actions.dart';
 import '../shared/person_avatar.dart';
 
-class UsersListPage extends StatelessWidget {
+class UsersListPage extends StatelessWidget { // A página de listagem de usuários exibe todos os usuários cadastrados, permitindo ao usuário adicionar, editar ou excluir usuários, com validação de estado e tratamento de erros.
   const UsersListPage({super.key});
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class UsersListPage extends StatelessWidget {
             label: const Text('Novo Usuário'),
           ),
         ),
-        Expanded(
+        Expanded( // A lista de usuários é exibida em um ListView, mostrando o nome, nome de usuário, local de trabalho e status de cada usuário, com opções para editar ou excluir cada usuário, e tratamento de estado para desabilitar ações durante operações de salvamento.
           child: ListView.builder(
             itemCount: provider.users.length,
             itemBuilder: (context, index) {

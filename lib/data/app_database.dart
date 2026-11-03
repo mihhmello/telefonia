@@ -12,7 +12,7 @@ class AppDatabase {
     DatabaseFactory? factory,
     this.path,
     this.initialAdminHasher = const PasswordHasher(),
-  }) : _factory = factory ?? createDatabaseFactory();
+  }) : _factory = factory ?? createDatabaseFactory(); // A factory padrão é usada se nenhuma for fornecida, permitindo a criação de bancos de dados SQLite para uso em produção ou teste.
 
   final PasswordHasher initialAdminHasher;
   final DatabaseFactory _factory;
@@ -20,12 +20,12 @@ class AppDatabase {
   Database? _database;
   Future<Database>? _opening;
 
-  Future<Database> get database async {
+  Future<Database> get database async { // Retorna a instância do banco de dados, abrindo-o se ainda não estiver aberto, garantindo que apenas uma abertura ocorra por vez.
     if (_database != null) return _database!;
     return _opening ??= _open();
   }
 
-  Future<Database> _open() async {
+  Future<Database> _open() async { // Abre o banco de dados, criando ou migrando o esquema conforme necessário, e habilita as chaves estrangeiras, garantindo que a versão do banco seja compatível com a aplicação.
     try {
       final databasePath =
           path ?? p.join(await _factory.getDatabasesPath(), 'telefonia.db');
@@ -42,7 +42,7 @@ class AppDatabase {
             }
             if (oldVersion < 3) await _seedAdmin(db);
           },
-          onCreate: (db, version) async {
+          onCreate: (db, version) async { // Cria o esquema do banco de dados, incluindo tabelas para usuários, técnicos, contratos e agendamentos, garantindo que as restrições de integridade referencial sejam aplicadas.
             await _createUsers(db);
             await db.execute('''CREATE TABLE tecnicos (
               id TEXT PRIMARY KEY NOT NULL,

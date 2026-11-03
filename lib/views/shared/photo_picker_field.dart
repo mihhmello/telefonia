@@ -7,6 +7,7 @@ import '../../repositories/crud_repository.dart';
 import '../../services/photo_service.dart';
 import 'person_avatar.dart';
 
+// Um campo de formulário que permite ao usuário selecionar, capturar ou remover uma foto, exibindo a foto atual ou um ícone de fallback.
 class PhotoPickerField extends StatefulWidget {
   const PhotoPickerField({
     super.key,
@@ -23,6 +24,7 @@ class PhotoPickerField extends StatefulWidget {
   State<PhotoPickerField> createState() => _PhotoPickerFieldState();
 }
 
+// O estado do campo de seleção de foto, gerenciando o processo de seleção, captura e remoção da foto, bem como o estado de carregamento.
 class _PhotoPickerFieldState extends State<PhotoPickerField> {
   bool _picking = false;
   Future<void> _pick(ImageSource source) async {

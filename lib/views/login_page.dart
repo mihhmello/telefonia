@@ -4,12 +4,14 @@ import 'package:provider/provider.dart';
 import '../providers/app_provider.dart';
 import 'shared/crud_actions.dart';
 
+// A página de login permite que o usuário insira seu nome de usuário e senha para acessar a aplicação, com validação de campos e tratamento de erros.
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
+// O estado da página de login gerencia os campos de entrada, validação e envio das credenciais do usuário, bem como o estado de carregamento.
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _username = TextEditingController();
@@ -23,6 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+// Tenta efetuar o login do usuário, validando os campos e chamando o método de login do provedor, exibindo mensagens de erro se necessário e redirecionando para a tela apropriada após o login bem-sucedido.
   Future<void> _login() async {
     if (_loading || !_formKey.currentState!.validate()) return;
     setState(() => _loading = true);
@@ -51,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  // Os links mantêm o visual anterior; contas e senhas são administradas internamente.
+  // Os links mantêm o visual anterior, contas e senhas são administradas internamente.
   void _accountHelp({bool password = false}) {
     showDialog<void>(
       context: context,
@@ -72,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+// Constrói a interface da página de login, incluindo campos de entrada para o nome de usuário e senha, um botão para efetuar o login e links para solicitar cadastro ou redefinir a senha, exibindo mensagens de erro conforme necessário.
   @override
   Widget build(BuildContext context) {
     return Scaffold(

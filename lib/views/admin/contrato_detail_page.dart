@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/contrato_model.dart';
 
-class ContratoDetailPage extends StatelessWidget {
+class ContratoDetailPage extends StatelessWidget { //
   const ContratoDetailPage({super.key});
 
   @override
@@ -10,7 +10,7 @@ class ContratoDetailPage extends StatelessWidget {
     final contrato =
         ModalRoute.of(context)!.settings.arguments as ContratoModel;
 
-    return Scaffold(
+    return Scaffold( // A página de detalhes do contrato exibe informações detalhadas sobre um contrato específico, incluindo o cliente, plano contratado e endereço de instalação, com uma interface de usuário organizada e estilizada.
       appBar: AppBar(
         title: Text(contrato.numeroContrato),
         backgroundColor: Colors.orange,

@@ -6,13 +6,13 @@ import '../../models/agendamento_model.dart';
 import '../../providers/app_provider.dart';
 import '../shared/crud_actions.dart';
 
-class AgendamentoFormPage extends StatefulWidget {
+class AgendamentoFormPage extends StatefulWidget { // O formulário de agendamento permite ao usuário selecionar um técnico, um contrato e uma data/hora para agendar uma visita técnica, com validação de campos e tratamento de erros.
   const AgendamentoFormPage({super.key});
   @override
   State<AgendamentoFormPage> createState() => _AgendamentoFormPageState();
 }
 
-class _AgendamentoFormPageState extends State<AgendamentoFormPage> {
+class _AgendamentoFormPageState extends State<AgendamentoFormPage> {// O estado do formulário de agendamento gerencia os campos de entrada, validação e envio dos dados do agendamento, bem como o estado de carregamento.
   final _formKey = GlobalKey<FormState>();
   AgendamentoModel? _original;
   String? _tecnicoId;
@@ -22,7 +22,7 @@ class _AgendamentoFormPageState extends State<AgendamentoFormPage> {
   bool _saving = false;
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() { // Inicializa os campos do formulário com os dados do agendamento original, se disponível, e define o estado inicial do formulário.
     super.didChangeDependencies();
     if (_initialized) return;
     _initialized = true;
@@ -40,7 +40,7 @@ class _AgendamentoFormPageState extends State<AgendamentoFormPage> {
         );
   }
 
-  Future<void> _pickDate() async {
+  Future<void> _pickDate() async {// Exibe um seletor de data para o usuário escolher a data do agendamento, atualizando o estado do formulário com a data selecionada.
     final value = await showDatePicker(
       context: context,
       initialDate: _dataHora,
@@ -60,7 +60,7 @@ class _AgendamentoFormPageState extends State<AgendamentoFormPage> {
     }
   }
 
-  Future<void> _pickTime() async {
+  Future<void> _pickTime() async {// Exibe um seletor de hora para o usuário escolher a hora do agendamento, atualizando o estado do formulário com a hora selecionada.
     final value = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(_dataHora),
@@ -78,7 +78,7 @@ class _AgendamentoFormPageState extends State<AgendamentoFormPage> {
     }
   }
 
-  Future<void> _save() async {
+  Future<void> _save() async {// Salva os dados do agendamento, validando os campos e chamando o método de salvamento do provider, exibindo mensagens de erro se necessário e redirecionando para a tela apropriada após o salvamento bem-sucedido.
     if (_saving || !_formKey.currentState!.validate()) return;
     if ((_original == null || _original!.dataHora != _dataHora) &&
         !_dataHora.isAfter(DateTime.now())) {
@@ -110,7 +110,7 @@ class _AgendamentoFormPageState extends State<AgendamentoFormPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { // Constrói a interface do formulário de agendamento, incluindo campos de seleção para técnico e contrato, botões para escolher data e hora, e um botão para salvar o agendamento, exibindo mensagens de erro conforme necessário.
     final provider = context.watch<AppProvider>();
     final canSchedule =
         provider.tecnicos.isNotEmpty && provider.contratos.isNotEmpty;

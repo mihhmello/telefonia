@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 // O modelo da interface nunca carrega a senha nem o hash da senha.
+// O modelo de usuário é imutável, garantindo que os dados do usuário não sejam alterados inadvertidamente após a criação da instância.
 class UserModel {
   const UserModel({
     required this.id,
@@ -20,7 +21,7 @@ class UserModel {
   final bool mustChangePassword;
   bool get isAdmin => role == 'admin';
 
-  factory UserModel.fromMap(Map<String, Object?> row) => UserModel(
+  factory UserModel.fromMap(Map<String, Object?> row) => UserModel( // Cria uma instância de UserModel a partir de um mapa de dados, mapeando os campos do banco de dados para as propriedades do modelo, incluindo a conversão do campo de foto para Uint8List e a interpretação do campo trocar_senha como booleano.
     id: row['id'] as String,
     nome: row['nome'] as String,
     localTrabalho: row['local_trabalho'] as String,

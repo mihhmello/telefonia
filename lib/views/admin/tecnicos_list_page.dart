@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../shared/crud_actions.dart';
 
-class TecnicosListPage extends StatelessWidget {
+class TecnicosListPage extends StatelessWidget { // A página de listagem de técnicos exibe todos os técnicos cadastrados, permitindo ao usuário adicionar, editar ou excluir técnicos, com validação de estado e tratamento de erros.
   const TecnicosListPage({super.key});
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class TecnicosListPage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Expanded(
+          Expanded( // A lista de técnicos é exibida em um ListView, mostrando o nome e especialidade de cada técnico, com opções para editar ou excluir cada técnico, e tratamento de estado para desabilitar ações durante operações de salvamento.
             child: provider.tecnicos.isEmpty
                 ? const Center(child: Text('Nenhum registro cadastrado.'))
                 : ListView.builder(

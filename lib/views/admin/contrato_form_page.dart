@@ -5,13 +5,13 @@ import '../../models/contrato_model.dart';
 import '../../providers/app_provider.dart';
 import '../shared/crud_actions.dart';
 
-class ContratoFormPage extends StatefulWidget {
+class ContratoFormPage extends StatefulWidget { // O formulário de contrato permite ao usuário cadastrar ou editar informações de um contrato, incluindo número do contrato, cliente, plano e endereço, com validação de campos e tratamento de erros.
   const ContratoFormPage({super.key});
   @override
   State<ContratoFormPage> createState() => _ContratoFormPageState();
 }
 
-class _ContratoFormPageState extends State<ContratoFormPage> {
+class _ContratoFormPageState extends State<ContratoFormPage> { // O estado do formulário de contrato gerencia os campos de entrada, validação e envio dos dados do contrato, bem como o estado de carregamento.
   final _formKey = GlobalKey<FormState>();
   ContratoModel? _original;
   bool _initialized = false;
@@ -22,7 +22,7 @@ class _ContratoFormPageState extends State<ContratoFormPage> {
   final _endereco = TextEditingController();
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() { // Inicializa os campos do formulário com os dados do contrato original, se disponível, e define o estado inicial do formulário.
     super.didChangeDependencies();
     if (_initialized) return;
     _initialized = true;
@@ -34,7 +34,7 @@ class _ContratoFormPageState extends State<ContratoFormPage> {
   }
 
   @override
-  void dispose() {
+  void dispose() { // Descartar os controladores de texto quando o widget for removido da árvore de widgets para evitar vazamentos de memória.
     _numeroContrato.dispose();
     _cliente.dispose();
     _plano.dispose();
@@ -42,7 +42,7 @@ class _ContratoFormPageState extends State<ContratoFormPage> {
     super.dispose();
   }
 
-  Future<void> _save() async {
+  Future<void> _save() async { // Salva os dados do contrato, validando os campos e chamando o método de salvamento do provider, exibindo mensagens de erro se necessário e redirecionando para a tela apropriada após o salvamento bem-sucedido.
     if (_saving || !_formKey.currentState!.validate()) return;
     setState(() => _saving = true);
     final provider = context.read<AppProvider>();
@@ -68,7 +68,7 @@ class _ContratoFormPageState extends State<ContratoFormPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => Scaffold( // Constrói a interface do formulário de contrato, incluindo campos de entrada para número do contrato, cliente, plano e endereço, bem como um botão para salvar o contrato, exibindo mensagens de erro conforme necessário.
     appBar: AppBar(
       title: Text(_original == null ? 'Cadastrar Contrato' : 'Editar Contrato'),
       backgroundColor: Colors.orange,

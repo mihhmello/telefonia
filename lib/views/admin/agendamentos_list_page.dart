@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../shared/crud_actions.dart';
 
-class AgendamentosListPage extends StatelessWidget {
+class AgendamentosListPage extends StatelessWidget {// A página de listagem de agendamentos exibe todos os agendamentos realizados, permitindo ao usuário adicionar, editar ou excluir agendamentos, com validação de estado e tratamento de erros.
   const AgendamentosListPage({super.key});
   @override
   Widget build(BuildContext context) {

@@ -10,13 +10,13 @@ import '../../models/tecnico_model.dart';
 import '../../providers/app_provider.dart';
 import '../shared/crud_actions.dart';
 
-class TecnicoFormPage extends StatefulWidget {
+class TecnicoFormPage extends StatefulWidget { // O formulário de técnico permite ao usuário cadastrar ou editar informações de um técnico, incluindo nome, especialidade, telefone e foto, com validação de campos e tratamento de erros.
   const TecnicoFormPage({super.key});
   @override
   State<TecnicoFormPage> createState() => _TecnicoFormPageState();
 }
 
-class _TecnicoFormPageState extends State<TecnicoFormPage> {
+class _TecnicoFormPageState extends State<TecnicoFormPage> { // O estado do formulário de técnico gerencia os campos de entrada, validação e envio dos dados do técnico, bem como o estado de carregamento.
   final _formKey = GlobalKey<FormState>();
   TecnicoModel? _original;
   Uint8List? _photo;
@@ -27,7 +27,7 @@ class _TecnicoFormPageState extends State<TecnicoFormPage> {
   final _telefone = TextEditingController();
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies() { // Inicializa os campos do formulário com os dados do técnico original, se disponível, e define o estado inicial do formulário.
     super.didChangeDependencies();
     if (_initialized) return;
     _initialized = true;
@@ -39,14 +39,14 @@ class _TecnicoFormPageState extends State<TecnicoFormPage> {
   }
 
   @override
-  void dispose() {
+  void dispose() { // Descartar os controladores de texto quando o widget for removido da árvore de widgets para evitar vazamentos de memória.
     _nome.dispose();
     _especialidade.dispose();
     _telefone.dispose();
     super.dispose();
   }
 
-  Future<void> _save() async {
+  Future<void> _save() async { // Salva os dados do técnico, validando os campos e chamando o método de salvamento do provider, exibindo mensagens de erro se necessário e redirecionando para a tela apropriada após o salvamento bem-sucedido.
     if (_saving || !_formKey.currentState!.validate()) return;
     setState(() => _saving = true);
     final provider = context.read<AppProvider>();
@@ -73,7 +73,7 @@ class _TecnicoFormPageState extends State<TecnicoFormPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => Scaffold( // Constrói a interface do formulário de técnico, incluindo campos de entrada para nome, especialidade, telefone e foto, bem como um botão para salvar o técnico, exibindo mensagens de erro conforme necessário.
     appBar: AppBar(
       title: Text(_original == null ? 'Cadastrar Técnico' : 'Editar Técnico'),
       backgroundColor: Colors.orange,

@@ -18,6 +18,7 @@ class UserFormPage extends StatefulWidget {
   State<UserFormPage> createState() => _UserFormPageState();
 }
 
+// O estado da página de formulário de usuário gerencia os campos de entrada, validação e envio dos dados do usuário, bem como o estado de carregamento.
 class _UserFormPageState extends State<UserFormPage> {
   final _key = GlobalKey<FormState>();
   final _name = TextEditingController();
@@ -32,6 +33,7 @@ class _UserFormPageState extends State<UserFormPage> {
   bool _initialized = false;
   bool _saving = false;
 
+// Inicializa os campos do formulário com os dados do usuário original, se disponível, e define o estado inicial do formulário.
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -48,6 +50,7 @@ class _UserFormPageState extends State<UserFormPage> {
     _photo = _original?.foto;
   }
 
+// Descartar os controladores de texto quando o widget for removido da árvore de widgets para evitar vazamentos de memória.
   @override
   void dispose() {
     _name.dispose();
@@ -58,6 +61,7 @@ class _UserFormPageState extends State<UserFormPage> {
     super.dispose();
   }
 
+// Salva os dados do usuário, validando os campos e chamando o método de salvamento do provider, exibindo mensagens de erro se necessário e redirecionando para a tela apropriada após o salvamento bem-sucedido.
   Future<void> _save() async {
     if (_saving || !_key.currentState!.validate()) return;
     setState(() => _saving = true);
@@ -93,6 +97,7 @@ class _UserFormPageState extends State<UserFormPage> {
     }
   }
 
+// Constrói a interface da página de formulário de usuário, incluindo campos de entrada para nome, local de trabalho, nome de usuário, senha e grupo, bem como um campo de seleção de foto e botões para salvar ou alterar a senha, exibindo mensagens de erro conforme necessário.
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(

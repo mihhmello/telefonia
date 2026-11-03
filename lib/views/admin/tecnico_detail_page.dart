@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 
 import '../../models/tecnico_model.dart';
 
-class TecnicoDetailPage extends StatelessWidget {
+class TecnicoDetailPage extends StatelessWidget { // A página de detalhes do técnico exibe informações detalhadas sobre um técnico específico, incluindo foto, nome, especialidade e telefone de contato, com uma interface de usuário organizada e estilizada.
   const TecnicoDetailPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { // Constrói a interface da página de detalhes do técnico, recuperando os dados do técnico a partir dos argumentos da rota e exibindo-os em um layout centralizado com espaçamento adequado.
     final tecnico = ModalRoute.of(context)!.settings.arguments as TecnicoModel;
 
     return Scaffold(

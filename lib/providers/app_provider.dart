@@ -37,7 +37,7 @@ class AppProvider extends ChangeNotifier {
   bool isSaving = false;
   String? loadError;
 
-  Future<void> initialize() async {
+  Future<void> initialize() async { // Inicializa o provider, carregando o banco de dados e os dados do usuário atual, tratando erros e notificando os ouvintes sobre o estado de carregamento.
     isLoading = true;
     loadError = null;
     notifyListeners();
@@ -54,7 +54,7 @@ class AppProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> _reload() async {
+  Future<void> _reload() async { // Recarrega os dados do usuário atual e as listas de técnicos, contratos e agendamentos, garantindo que a sessão ainda seja válida e tratando casos em que o usuário precisa alterar sua senha.
     final current = _currentUser;
     if (current == null) return;
     final session = _sessionVersion;
@@ -78,7 +78,7 @@ class AppProvider extends ChangeNotifier {
     _users = users;
   }
 
-  Future<void> _save(
+  Future<void> _save( // executa uma ação de salvamento de dados, garantindo que o usuário atual tenha acesso apropriado, tratando erros e notificando os ouvintes sobre o estado de salvamento.
     Future<void> Function() action, {
     bool admin = true,
     bool allowPasswordChange = false,
@@ -94,7 +94,7 @@ class AppProvider extends ChangeNotifier {
         'A sessão foi encerrada. Entre novamente.',
       );
     }
-    if (isSaving) throw const RepositoryException('Aguarde a operação atual.');
+    if (isSaving) throw const RepositoryException('Aguarde a operação atual.'); // Evita que múltiplas operações de salvamento ocorram simultaneamente, garantindo consistência dos dados.
     isSaving = true;
     notifyListeners();
     try {
@@ -109,7 +109,7 @@ class AppProvider extends ChangeNotifier {
   // Usuário Atualmente Logado
   UserModel? _currentUser;
 
-  // Getters
+  // 
   List<TecnicoModel> get tecnicos => List<TecnicoModel>.unmodifiable(_tecnicos);
   List<ContratoModel> get contratos =>
       List<ContratoModel>.unmodifiable(_contratos);
@@ -117,6 +117,7 @@ class AppProvider extends ChangeNotifier {
       List<AgendamentoModel>.unmodifiable(_agendamentos);
   UserModel? get currentUser => _currentUser;
 
+// Tenta efetuar o login do usuário, validando as credenciais e carregando os dados do usuário atual, retornando o usuário autenticado ou null se a autenticação falhar.
   Future<UserModel?> login(String username, String password) async {
     final session = ++_sessionVersion;
     _currentUser = null;
@@ -129,6 +130,7 @@ class AppProvider extends ChangeNotifier {
     return _currentUser;
   }
 
+// Tenta efetuar o login do usuário, validando as credenciais e carregando os dados do usuário atual, retornando o usuário autenticado ou null se a autenticação falhar.
   void _clearData() {
     _tecnicos = [];
     _contratos = [];
@@ -136,6 +138,7 @@ class AppProvider extends ChangeNotifier {
     _users = [];
   }
 
+// Encerra a sessão do usuário atual, limpando os dados e notificando os ouvintes sobre a alteração de estado.
   void logout() {
     _sessionVersion++;
     _currentUser = null;
@@ -143,6 +146,7 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+// Salva os dados do usuário, validando os campos e chamando o método de salvamento do provider, exibindo mensagens de erro se necessário e redirecionando para a tela apropriada após o salvamento bem-sucedido.
   Future<void> saveUser(
     UserModel user, {
     String? password,
@@ -155,6 +159,8 @@ class AppProvider extends ChangeNotifier {
       creating: creating,
     ),
   );
+
+  // Exclui o usuário especificado, garantindo que o usuário atual tenha acesso apropriado, tratando erros e notificando os ouvintes sobre a alteração de estado.
   Future<void> deleteUser(String id) =>
       _save(() => _userRepository.delete(_currentUser!.id, id));
   Future<void> saveProfile(UserModel user) => _save(
@@ -171,6 +177,7 @@ class AppProvider extends ChangeNotifier {
     allowPasswordChange: true,
   );
 
+// Valida os campos do técnico, lançando uma exceção se algum campo obrigatório estiver ausente ou se a foto exceder o tamanho máximo permitido.
   void _validateTecnico(TecnicoModel value) {
     final error =
         FieldValidators.requiredText(value.nome) ??
@@ -182,6 +189,7 @@ class AppProvider extends ChangeNotifier {
     }
   }
 
+// Adiciona, atualiza ou remove técnicos, contratos e agendamentos, garantindo que o usuário atual tenha acesso apropriado, tratando erros e notificando os ouvintes sobre a alteração de estado.
   Future<void> addTecnico(TecnicoModel value) => _save(() async {
     _validateTecnico(value);
     await _repository.tecnicos.create(value);
